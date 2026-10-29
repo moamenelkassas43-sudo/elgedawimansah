@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10182c">
+<meta name="description" content="منصة تاريخ الرقي التعليمية - الأستاذ محمد الجداوي">
+<title>تاريخ الرقي | الأستاذ محمد الجداوي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+:root{--bg:#f3f5fa;--card:#fff;--text:#18243c;--muted:#8490a5;--line:#e7ebf3;--navy:#10182c;--navy2:#1a2b49;--gold:#dfbd76;--gold2:#f4dda5;--shadow:0 15px 45px #1724400a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);transition:.3s;line-height:1.8}
+body.dark{--bg:#0a1020;--card:#121c30;--text:#edf2fc;--muted:#9aa8bd;--line:#27334a;--navy:#080e1c;--navy2:#192844;--shadow:0 15px 45px #0002}
+button,input,select,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+button:disabled{opacity:.5;cursor:not-allowed}
+.loader{position:fixed;inset:0;background:#10182c;color:white;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;transition:.4s}
+.loader.hide{opacity:0;visibility:hidden}
+.loader i{font-size:42px;color:var(--gold);animation:float 1.5s infinite}
+.loader h2{margin:15px 0 0}
+.loader p{color:#9caac0;font-size:13px}
+@keyframes float{50%{transform:translateY(-8px)}}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:0}100%{background-position:200%}}
+.sidebar{position:fixed;right:0;top:0;bottom:0;width:255px;background:var(--navy);color:#fff;padding:23px 17px;display:flex;flex-direction:column;z-index:100;overflow-y:auto;transition:transform .3s}
+.brand{display:flex;align-items:center;gap:12px;padding:0 5px 23px;border-bottom:1px solid #ffffff12}
+.brand-icon{width:45px;height:45px;border-radius:15px;background:linear-gradient(140deg,#f5dfaa,#c39a4e);display:grid;place-items:center;color:#17233b;font-size:22px;box-shadow:0 8px 25px #dfbd7620}
+.brand-title{font-size:19px;font-weight:900;color:#f1d79b;line-height:1.4}
+.brand-subtitle{font-size:10px;color:#9caac0}
+.user-profile{display:flex;align-items:center;gap:10px;padding:19px 5px;border-bottom:1px solid #ffffff12}
+.avatar{width:41px;height:41px;flex-shrink:0;border-radius:13px;background:#263752;color:var(--gold);display:grid;place-items:center;font-size:19px}
+.profile-text{min-width:0;flex:1}
+.profile-text strong{display:block;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.profile-text small{font-size:10px;color:#9caac0}
+.online{width:7px;height:7px;background:#54cf9a;border-radius:50%;box-shadow:0 0 0 4px #54cf9a20}
+.nav-label{font-size:10px;letter-spacing:1px;color:#73829e;padding:22px 9px 9px}
+.nav-list{display:grid;gap:5px}
+.nav-link{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:11px;color:#a6b2c7;font-size:13px;font-weight:700;transition:.2s}
+.nav-link i{width:19px;text-align:center}
+.nav-link:hover,.nav-link.active{background:#dfbd7618;color:#f2d99c;box-shadow:inset -3px 0 var(--gold)}
+.sidebar-bottom{margin-top:auto}
+.quote-box{padding:14px;margin:20px 0 12px;border:1px solid #ffffff12;background:#ffffff06;border-radius:13px;color:var(--gold)}
+.quote-box p{font-size:12px;color:#aebbd0;margin:6px 0 0}
+.logout{width:100%;border:0;background:transparent;color:#dba2a2;text-align:right}
+.logout:hover{background:#ef666615;color:#ffb3b3;box-shadow:none}
+.sidebar-footer{text-align:center;color:#6c7a94;font-size:10px;padding-top:12px}
+.main{margin-right:255px;min-height:100vh}
+.topbar{height:72px;position:sticky;top:0;z-index:80;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;gap:15px}
+.top-left,.top-actions{display:flex;align-items:center;gap:13px}
+.breadcrumb{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted)}
+.breadcrumb strong{color:var(--text)}
+.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text);display:grid;place-items:center}
+.icon-btn:hover{color:#bd9348;border-color:var(--gold)}
+.menu-btn{display:none}
+.date-chip{font-size:11px;color:var(--muted)}
+.user-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:30px;padding:5px 10px;background:var(--bg);color:var(--text);font-size:12px}
+.user-chip .avatar{width:28px;height:28px;border-radius:50%;font-size:12px}
+.content{max-width:1600px;margin:auto;padding:28px 30px 0}
+.hero{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:20px;min-height:335px;padding:32px 35px;border-radius:23px;color:white;background:linear-gradient(115deg,#10182c,#192b49 72%,#243c5d);box-shadow:0 22px 50px #10182c17;animation:appear .6s}
+.hero:before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 85% 10%,#dfbd7624,transparent 35%),radial-gradient(ellipse at 10% 100%,#5183b51d,transparent 40%)}
+.hero-copy{position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid #dfbd7645;border-radius:30px;background:#dfbd760c;color:#eed39a;font-size:11px;font-weight:800}
+.eyebrow span{width:7px;height:7px;background:#54cf9a;border-radius:50%}
+.hero h1{font-size:clamp(28px,3.1vw,43px);line-height:1.5;font-weight:900;margin:16px 0 8px}
+.hero h1 span{color:#f0d38f}
+.hero-copy>p{max-width:550px;color:#c1cbd9;font-size:13px;line-height:2.2;margin:0}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:10px 16px;border:0;border-radius:10px;font-size:12px;font-weight:900;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:linear-gradient(120deg,#f2dda7,#d9b568);color:#17233b;box-shadow:0 7px 20px #dfbd7620}
+.btn-glass{background:#ffffff0c;color:white;border:1px solid #ffffff2a}
+.hero-visual{height:270px;display:grid;place-items:center;position:relative}
+.hero-ring{position:absolute;width:260px;height:260px;border:1px solid #dfbd7627;border-radius:50%}
+.hero-ring.r2{width:315px;height:315px;border-color:#ffffff0d}
+.teacher-frame{position:relative;z-index:2;width:190px;height:245px;overflow:hidden;border-radius:105px 105px 23px 23px;border:1px solid #dfbd7699;background:linear-gradient(145deg,#344c6b,#10182c);box-shadow:0 15px 45px #0004,0 0 0 8px #dfbd7609}
+.teacher-frame img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.teacher-fallback{display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:80px;color:var(--gold)}
+.floating{position:absolute;z-index:3;display:flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid #ffffff25;border-radius:12px;background:#ffffff13;backdrop-filter:blur(12px)}
+.floating i{width:33px;height:33px;display:grid;place-items:center;background:#dfbd7620;color:var(--gold);border-radius:9px}
+.floating strong,.floating small{display:block;line-height:1.6}
+.floating strong{font-size:11px}.floating small{font-size:9px;color:#c2ccda}
+.float-top{top:19px;right:-4px}.float-bottom{bottom:15px;left:-4px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:19px}
+.stat{display:flex;align-items:center;gap:12px;padding:17px 14px;min-width:0;position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);transition:.2s}
+.stat:hover{transform:translateY(-3px);border-color:#dfbd7680}
+.stat-icon{width:43px;height:43px;flex-shrink:0;border-radius:13px;display:grid;place-items:center;font-size:18px}
+.gold-bg{background:#dfbd761d;color:#c19a4c}.blue-bg{background:#648ce81b;color:#648ce8}.purple-bg{background:#9b7ce51b;color:#9b7ce5}.green-bg{background:#44b88a1b;color:#44b88a}
+.stat-info{min-width:0}
+.stat-info span,.stat-info small{display:block;color:var(--muted);font-size:10px}
+.stat-info strong{display:block;font-size:22px;font-weight:900;line-height:1.7;overflow-wrap:anywhere}
+.section{margin-top:48px;scroll-margin-top:90px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+.kicker{font-size:10px;letter-spacing:1px;color:#bb9148;font-weight:900}
+.section-heading h2{font-size:26px;line-height:1.5;margin:4px 0;font-weight:900}
+.section-heading h2 span{color:#bd984e}
+.section-heading p{font-size:12px;color:var(--muted);margin:0}
+.about-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.about-card{padding:24px;position:relative;overflow:hidden}
+.about-card.main-about{background:linear-gradient(145deg,var(--card),var(--bg))}
+.about-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#dfbd761b;color:#bd9348;font-size:20px}
+.about-card h3,.principle h3,.feature h3{font-size:16px;font-weight:900;margin:14px 0 7px}
+.about-card p,.principle p,.feature p{font-size:12px;line-height:2.1;color:var(--muted);margin:0}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.tags span{font-size:10px;padding:3px 10px;border-radius:20px;background:#dfbd7613;border:1px solid #dfbd7630;color:#bd9348}
+.principle{padding:23px;position:relative;overflow:hidden}
+.principle>i{font-size:23px;color:#bd9348}
+.principle .number{position:absolute;left:15px;top:3px;font-size:32px;color:#dfbd761c;font-weight:900}
+.features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.feature{padding:22px 19px;transition:.2s}
+.feature:hover{transform:translateY(-4px);border-color:#dfbd766b}
+.feature-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:20px}
+.feature h3{font-size:14px}
+.feature p{min-height:72px}
+.feature-link{display:inline-flex;align-items:center;gap:7px;margin-top:15px;background:none;border:0;padding:0;color:#bd9348;font-size:11px;font-weight:900}
+.workspace{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.panel{padding:23px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px}
+.panel-head h3{font-size:16px;font-weight:900;margin:0}
+.panel-head h3 i{color:#bd9348;margin-left:6px}
+.panel-head p{font-size:11px;color:var(--muted);margin:3px 0 0}
+.pill{font-size:10px;font-weight:800;color:#bd9348;border:1px solid #dfbd7640;background:#dfbd7615;border-radius:20px;padding:4px 10px;white-space:nowrap}
+label{display:block;font-size:11px;font-weight:800;margin-bottom:6px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--bg);color:var(--text);font-size:12px;outline:none;transition:.2s}
+input:focus,select:focus,textarea:focus{border-color:#dfbd76;box-shadow:0 0 0 3px #dfbd7615}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+.input-row{display:flex;gap:8px}
+.input-row input{flex:1;min-width:0}
+.date-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.date-row label{margin:0}
+.date-row input{width:auto;padding:5px 8px}
+.progress-box{padding:16px 0;border-top:1px solid var(--line);margin-top:18px}
+.progress-label{display:flex;justify-content:space-between;font-size:11px;margin-bottom:8px}
+.progress-label strong{color:#bd9348}
+.progress-track{height:7px;background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#bd9348,#f4dda5);border-radius:10px;transition:width .35s}
+.task-list{display:grid;gap:8px}
+.task-item{display:flex;align-items:center;gap:10px;padding:11px;background:var(--bg);border:1px solid var(--line);border-radius:11px;animation:appear .25s}
+.task-check{width:19px;height:19px;accent-color:#bd9348;flex-shrink:0}
+.task-text{flex:1;min-width:0}
+.task-text strong{font-size:12px;display:block;overflow-wrap:anywhere}
+.task-text small{font-size:10px;color:var(--muted)}
+.task-item.completed strong{text-decoration:line-through;color:var(--muted)}
+.delete-btn{width:30px;height:30px;border:0;border-radius:8px;background:transparent;color:#cb7777;flex-shrink:0}
+.delete-btn:hover{background:#d44d4d12}
+.empty{padding:25px 10px;display:flex;align-items:center;flex-direction:column;text-align:center;color:var(--muted);gap:4px}
+.empty i{font-size:28px;color:#dfbd76;margin-bottom:5px}
+.empty strong{font-size:12px;color:var(--text)}
+.empty span{font-size:11px}
+.tip{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tip:last-of-type{border-bottom:0}
+.tip-num{width:33px;height:33px;flex-shrink:0;display:grid;place-items:center;border-radius:10px;background:#dfbd7618;color:#bd9348;font-weight:900;font-size:11px}
+.tip strong{font-size:12px}
+.tip p{font-size:11px;line-height:1.9;color:var(--muted);margin:3px 0 0}
+.motivation{padding:13px;border-radius:12px;background:#dfbd7610;border:1px solid #dfbd7628;margin-top:13px;color:#bd9348}
+.motivation p{font-size:11px;color:var(--text);margin:4px 0 0}
+.note-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:13px}
+textarea{resize:vertical;min-height:100px}
+.notes-divider{border-top:1px solid var(--line);margin:22px 0}
+.notes-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.notes-heading h3{font-size:15px;margin:0}
+.notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.note-card{padding:15px;border:1px solid var(--line);border-radius:13px;background:var(--bg);min-width:0}
+.note-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.note-top h4{font-size:13px;margin:0;overflow-wrap:anywhere}
+.note-category{font-size:9px;color:#bd9348;background:#dfbd7615;border-radius:15px;padding:3px 8px;white-space:nowrap}
+.note-card p{font-size:12px;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere;line-height:2}
+.note-date{font-size:9px;color:var(--muted)}
+.help-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}
+.faq-list{display:grid;gap:9px;align-content:start}
+.faq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 16px}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:15px 0;font-size:12px;font-weight:800}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{color:#bd9348;transition:.2s}
+.faq[open] summary i{transform:rotate(45deg)}
+.faq p{font-size:12px;color:var(--muted);line-height:2.1;margin:0;padding:0 0 15px}
+.support{padding:26px;text-align:center;display:flex;align-items:center;flex-direction:column;justify-content:center}
+.support-icon{width:72px;height:72px;border-radius:23px;display:grid;place-items:center;background:#dfbd7618;color:#bd9348;font-size:31px;margin-bottom:13px}
+.support h3{font-size:18px;margin:0}
+.support p{font-size:12px;color:var(--muted);max-width:320px;line-height:2.1}
+.whatsapp{background:#20a765;color:white}
+.support small{font-size:10px;color:var(--muted);margin-top:10px}
+.footer{position:relative;margin-top:55px;padding:25px 0 20px;border-top:1px solid var(--line);text-align:center}
+.footer-brand{font-weight:900;color:#bd9348;font-size:17px}
+.footer p{font-size:11px;color:var(--muted);margin:4px 0}
+.footer>span{font-size:10px;color:var(--muted)}
+.back-top{position:absolute;left:0;top:27px;width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:var(--card);border:1px solid var(--line);color:var(--text)}
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:#080e1dcc;backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex;animation:appear .2s}
+.modal{position:relative;width:100%;max-width:440px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:29px;box-shadow:0 30px 100px #0004;max-height:90vh;overflow-y:auto}
+.close-modal{position:absolute;left:16px;top:16px;width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}
+.modal-brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;margin-bottom:23px}
+.modal-brand .brand-icon{width:40px;height:40px}
+.modal-heading h2{font-size:26px;margin:5px 0;font-weight:900}
+.modal-heading h2 span{color:#bd9348}
+.modal-heading p{font-size:12px;line-height:2;color:var(--muted);margin:0 0 20px}
+.field{margin-bottom:14px}
+.field-icon{position:relative}
+.field-icon i{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:#bd9348}
+.field-icon input,.field-icon select{padding-right:39px}
+.submit-login{width:100%;margin-top:8px;padding:13px}
+.privacy{font-size:10px;text-align:center;color:var(--muted);margin:13px 0 0}
+.privacy i{color:#44b88a;margin-left:4px}
+.toast-container{position:fixed;left:20px;bottom:20px;z-index:2000;display:grid;gap:9px}
+.toast{max-width:min(360px,calc(100vw - 40px));display:flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--text);box-shadow:var(--shadow);font-size:12px;animation:appear .25s}
+.toast i{color:#44b88a}
+.mobile-overlay{display:none}
+@media(max-width:1200px){.sidebar{width:230px}.main{margin-right:230px}.content{padding:22px}.topbar{padding:0 22px}.hero{padding:27px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.features{grid-template-columns:repeat(2,minmax(0,1fr))}.about-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.main-about{grid-column:1/-1}}
+@media(max-width:800px){.sidebar{transform:translateX(100%);width:270px;box-shadow:-15px 0 50px #0002}.sidebar.open{transform:translateX(0)}.main{margin-right:0}.menu-btn{display:grid}.topbar{height:65px;padding:0 15px}.top-left,.top-actions{gap:8px}.date-chip{display:none}.content{padding:18px 14px 0}.hero{grid-template-columns:1fr;padding:26px 23px}.hero-visual{height:245px;margin-top:8px}.hero-copy>p{font-size:12px}.hero h1{font-size:31px}.teacher-frame{height:220px;width:175px}.hero-ring{width:230px;height:230px}.hero-ring.r2{width:270px;height:270px}.float-top{right:0}.float-bottom{left:0}.workspace,.help-grid{grid-template-columns:1fr}.section{margin-top:38px}.section-heading h2{font-size:23px}.about-grid{grid-template-columns:1fr 1fr}.main-about{grid-column:1/-1}.features{grid-template-columns:1fr 1fr}.feature p{min-height:auto}.panel{padding:18px}.mobile-overlay.show{display:block;position:fixed;inset:0;background:#0007;z-index:95}.breadcrumb{font-size:11px}}
+@media(max-width:480px){.content{padding:13px 10px 0}.topbar{padding:0 10px}.breadcrumb>span,.breadcrumb>i{display:none}.user-chip{padding:4px 7px}.user-chip>span:nth-child(2){max-width:75px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hero{padding:22px 17px;border-radius:17px}.hero h1{font-size:27px}.hero-buttons .btn{padding:10px 12px;font-size:11px}.hero-visual{height:220px}.teacher-frame{height:205px;width:160px}.floating{padding:7px 9px}.floating i{width:28px;height:28px}.floating strong{font-size:10px}.floating small{font-size:8px}.float-top{top:10px}.float-bottom{bottom:5px}.stats{gap:8px}.stat{padding:12px 9px;gap:8px}.stat-icon{width:35px;height:35px;font-size:15px}.stat-info span,.stat-info small{font-size:9px}.stat-info strong{font-size:18px}.section{margin-top:32px}.section-heading h2{font-size:21px}.section-heading p{font-size:11px}.about-grid,.features{grid-template-columns:1fr}.main-about{grid-column:auto}.about-card,.principle,.feature{padding:19px}.feature p{min-height:auto}.panel{padding:15px}.panel-head h3{font-size:14px}.panel-head p{font-size:10px}.input-row{flex-wrap:wrap}.input-row input{flex-basis:100%}.input-row button{width:100%}.note-form-grid,.notes-grid{grid-template-columns:1fr}.modal{padding:23px 19px}.modal-heading h2{font-size:23px}.footer{margin-top:35px}.back-top{top:15px}.footer p{padding:0 30px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><i class="fa-solid fa-landmark"></i><h2>تاريخ الرقي</h2><p>رحلتك نحو المعرفة تبدأ هنا</p></div>
+
+<aside class="sidebar" id="sidebar">
+<a href="#home" class="brand"><div class="brand-icon"><i class="fa-solid fa-landmark"></i></div><div><div class="brand-title">تاريخ الرقي</div><div class="brand-subtitle">منصة الأستاذ محمد الجداوي</div></div></a>
+<div class="user-profile"><div class="avatar"><i class="fa-solid fa-user-graduate"></i></div><div class="profile-text"><strong id="sideName">زائر المنصة</strong><small id="sideGrade">رحلتك التعليمية</small></div><span class="online"></span></div>
+<div class="nav-label">القائمة الرئيسية</div>
+<nav class="nav-list">
+<a href="#home" class="nav-link active" data-name="الرئيسية"><i class="fa-solid fa-house"></i> الرئيسية</a>
+<a href="#about" class="nav-link" data-name="عن المنصة"><i class="fa-solid fa-landmark"></i> عن المنصة</a>
+<a href="#features" class="nav-link" data-name="مميزات المنصة"><i class="fa-solid fa-layer-group"></i> مميزات المنصة</a>
+<a href="#study" class="nav-link" data-name="خطة المذاكرة"><i class="fa-solid fa-book-open"></i> خطتي للمذاكرة</a>
+<a href="#notes" class="nav-link" data-name="ملاحظاتي"><i class="fa-solid fa-note-sticky"></i> ملاحظاتي</a>
+<a href="#help" class="nav-link" data-name="المساعدة والدعم"><i class="fa-solid fa-circle-question"></i> المساعدة والدعم</a>
+</nav>
+<div class="sidebar-bottom"><div class="quote-box"><i class="fa-solid fa-quote-right"></i><p>بالعلم ترتقي العقول، وبالفهم تُصنع الفوارق.</p></div><button class="nav-link logout" id="logout"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</button><div class="sidebar-footer">© 2026 تاريخ الرقي</div></div>
+</aside>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="main">
+<header class="topbar"><div class="top-left"><button class="icon-btn menu-btn" id="menuBtn" aria-label="القائمة"><i class="fa-solid fa-bars-staggered"></i></button><div class="breadcrumb"><span>منصة التعليم</span><i class="fa-solid fa-chevron-left"></i><strong id="pageName">الرئيسية</strong></div></div><div class="top-actions"><span class="date-chip" id="dateText"></span><button class="icon-btn" id="themeBtn" aria-label="تغيير المظهر"><i class="fa-solid fa-moon"></i></button><button class="user-chip" id="userChip"><span class="avatar"><i class="fa-solid fa-user"></i></span><span id="topName">زائر</span></button></div></header>
+
+<main class="content">
+<section class="hero section" id="home">
+<div class="hero-copy"><div class="eyebrow"><span></span> بوابتك إلى عالم التاريخ</div><h1>أهلًا بيك في<br><span>تاريخ الرقي</span></h1><p>مع الأستاذ محمد الجداوي، مش هدفنا تحفظ التاريخ وبس؛ هدفنا تفهمه، وتعيش أحداثه، وتكتشف بنفسك حكاية الحضارات.</p><div class="hero-buttons"><a href="#study" class="btn btn-gold"><i class="fa-solid fa-rocket"></i> ابدأ رحلتك</a><a href="#about" class="btn btn-glass">اكتشف المنصة <i class="fa-solid fa-arrow-left"></i></a></div></div>
+<div class="hero-visual"><div class="hero-ring"></div><div class="hero-ring r2"></div><div class="teacher-frame"><img src="https://i.postimg.cc/j2c4vzD6/IMG-20261028-041451.png" alt="الأستاذ محمد الجداوي" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="teacher-fallback"><i class="fa-solid fa-user-tie"></i></div></div><div class="floating float-top"><i class="fa-solid fa-lightbulb"></i><span><strong>افهم بذكاء</strong><small>التفوق يبدأ بالفهم</small></span></div><div class="floating float-bottom"><i class="fa-solid fa-award"></i><span><strong>خطوة كل يوم</strong><small>نحو هدفك</small></span></div></div>
+</section>
+
+<section class="stats">
+<div class="stat"><div class="stat-icon gold-bg"><i class="fa-solid fa-book-open"></i></div><div class="stat-info"><span>مهام المذاكرة</span><strong id="statTasks">0</strong><small>مهام محفوظة</small></div></div>
+<div class="stat"><div class="stat-icon blue-bg"><i class="fa-solid fa-check-double"></i></div><div class="stat-info"><span>نسبة الإنجاز</span><strong id="statProgress">0%</strong><small>من خطتك</small></div></div>
+<div class="stat"><div class="stat-icon purple-bg"><i class="fa-solid fa-note-sticky"></i></div><div class="stat-info"><span>الملاحظات</span><strong id="statNotes">0</strong><small>ملاحظات محفوظة</small></div></div>
+<div class="stat"><div class="stat-icon green-bg"><i class="fa-solid fa-seedling"></i></div><div class="stat-info"><span>هدفك اليوم</span><strong>استمر</strong><small>كل خطوة بتفرق</small></div></div>
+</section>
+
+<section class="section" id="about"><div class="section-heading"><div><span class="kicker">OUR VISION • رؤيتنا</span><h2>التاريخ مش مجرد <span>حكاية</span></h2><p>هوية وحضارة ودروس بتساعدنا نفهم الحاضر ونبني المستقبل.</p></div></div><div class="about-grid">
+<article class="card about-card main-about"><div class="about-icon"><i class="fa-solid fa-compass"></i></div><h3>رحلة مختلفة في عالم التاريخ</h3><p>منصة تاريخ الرقي مساحة تعليمية هدفها جعل دراسة التاريخ أكثر وضوحًا وتنظيمًا ومتعة، مع تشجيع الطالب على الفهم والتحليل والتفكير بدلًا من الاعتماد على الحفظ وحده.</p><div class="tags"><span>الفهم</span><span>التحليل</span><span>التفوق</span></div></article>
+<article class="card principle"><span class="number">01</span><i class="fa-solid fa-brain"></i><h3>افهم قبل ما تحفظ</h3><p>اربط الأحداث بأسبابها ونتائجها، وهتلاقي المعلومة أوضح وأسهل.</p></article>
+<article class="card principle"><span class="number">02</span><i class="fa-solid fa-calendar-days"></i><h3>نظّم وقتك</h3><p>قسّم المذاكرة لمهام صغيرة تقدر تنجزها يومًا بعد يوم.</p></article>
+</div></section>
+
+<section class="section" id="features"><div class="section-heading"><div><span class="kicker">YOUR EXPERIENCE • تجربتك</span><h2>كل اللي يساعدك <span>تتقدم</span></h2><p>أدوات بسيطة تساعدك تنظم رحلة التعلم وتتابع تقدمك.</p></div></div><div class="features">
+<article class="card feature"><div class="feature-icon gold-bg"><i class="fa-solid fa-list-check"></i></div><h3>خطة مذاكرة منظمة</h3><p>أضف مهامك وحدد مواعيدها وتابع ما أنجزته.</p><a class="feature-link" href="#study">أنشئ خطتك <i class="fa-solid fa-arrow-left"></i></a></article>
+<article class="card feature"><div class="feature-icon blue-bg"><i class="fa-solid fa-note-sticky"></i></div><h3>دفتر ملاحظاتك</h3><p>سجّل أهم الأفكار والأسئلة والمعلومات التي تحتاج للرجوع إليها.</p><a class="feature-link" href="#notes">افتح ملاحظاتك <i class="fa-solid fa-arrow-left"></i></a></article>
+<article class="card feature"><div class="feature-icon purple-bg"><i class="fa-solid fa-moon"></i></div><h3>مظهر يناسبك</h3><p>بدّل بين الوضع الفاتح والداكن حسب راحتك.</p><button class="feature-link" id="featureTheme">غيّر المظهر <i class="fa-solid fa-arrow-left"></i></button></article>
+<article class="card feature"><div class="feature-icon green-bg"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>على كل أجهزتك</h3><p>تصميم مرن للموبايل والتابلت والكمبيوتر.</p><a class="feature-link" href="#help">المساعدة <i class="fa-solid fa-arrow-left"></i></a></article>
+</div></section>
+
+<section class="section" id="study"><div class="section-heading"><div><span class="kicker">YOUR STUDY SPACE • مساحة المذاكرة</span><h2>خطتك <span>للمذاكرة</span></h2><p>حوّل أهدافك إلى خطوات واضحة وتابع إنجازك بنفسك.</p></div></div><div class="workspace">
+<div class="card panel"><div class="panel-head"><div><h3><i class="fa-solid fa-list-check"></i> مهام المذاكرة</h3><p>خطوة صغيرة كل يوم تصنع فرقًا كبيرًا.</p></div><span class="pill" id="taskCount">0 مهام</span></div>
+<form id="taskForm"><label for="taskInput">المهمة الجديدة</label><div class="input-row"><input id="taskInput" maxlength="120" placeholder="مثال: مراجعة درس الحضارة المصرية..." required><button class="btn btn-gold" type="submit"><i class="fa-solid fa-plus"></i> إضافة</button></div><div class="date-row"><label for="taskDate">موعد المهمة</label><input id="taskDate" type="date"></div></form>
+<div class="progress-box"><div class="progress-label"><span>تقدمك في الخطة</span><strong id="progressText">0%</strong></div><div class="progress-track"><div class="progress-bar" id="progressBar"></div></div></div>
+<div class="task-list" id="taskList"></div><div class="empty" id="emptyTasks"><i class="fa-solid fa-clipboard-list"></i><strong>لسه مفيش مهام</strong><span>أضف أول مهمة وابدأ خطتك.</span></div>
+</div>
+<div class="card panel"><div class="panel-head"><div><h3><i class="fa-solid fa-wand-magic-sparkles"></i> نصائح للمذاكرة</h3><p>عادات بسيطة تساعدك على الفهم.</p></div></div>
+<div class="tip"><span class="tip-num">01</span><div><strong>ابدأ بهدف واضح</strong><p>حدّد درسًا أو جزءًا معينًا بدلًا من المذاكرة العشوائية.</p></div></div>
+<div class="tip"><span class="tip-num">02</span><div><strong>اربط الأحداث ببعضها</strong><p>اسأل نفسك: ما السبب؟ وما النتيجة؟ وما العلاقة بينهما؟</p></div></div>
+<div class="tip"><span class="tip-num">03</span><div><strong>اختبر فهمك</strong><p>حاول شرح الفكرة بكلماتك من غير الرجوع للكتاب.</p></div></div>
+<div class="tip"><span class="tip-num">04</span><div><strong>نظّم وقتك</strong><p>قسّم المذاكرة وخد فواصل مناسبة لما تحتاجها.</p></div></div>
+<div class="motivation"><i class="fa-solid fa-quote-right"></i><p>مش لازم تنجز كل حاجة في يوم واحد؛ المهم إنك تستمر وتتقدم.</p></div>
+</div></div></section>
+
+<section class="section" id="notes"><div class="section-heading"><div><span class="kicker">YOUR PERSONAL SPACE • مساحتك الخاصة</span><h2>دفتر <span>ملاحظاتك</span></h2><p>احفظ أفكارك وأسئلتك المهمة في مكان واحد على جهازك.</p></div></div><div class="card panel">
+<form id="noteForm"><div class="note-form-grid"><div class="field"><label for="noteTitle">عنوان الملاحظة</label><input id="noteTitle" maxlength="100" placeholder="مثال: أسباب قيام الحضارة..." required></div><div class="field"><label for="noteCategory">نوع الملاحظة</label><select id="noteCategory"><option>معلومة مهمة</option><option>سؤال للمراجعة</option><option>نقطة للمراجعة</option><option>فكرة جديدة</option></select></div></div><div class="field"><label for="noteContent">المحتوى</label><textarea id="noteContent" maxlength="3000" placeholder="اكتب ملاحظتك هنا..." required></textarea></div><button class="btn btn-gold" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ الملاحظة</button></form>
+<div class="notes-divider"></div><div class="notes-heading"><h3>ملاحظاتي المحفوظة</h3><span class="pill" id="noteCount">0 ملاحظات</span></div><div class="notes-grid" id="notesList"></div><div class="empty" id="emptyNotes"><i class="fa-solid fa-note-sticky"></i><strong>دفترك لسه فاضي</strong><span>أضف أول ملاحظة علشان تلاقيها هنا.</span></div>
+</div></section>
+
+<section class="section" id="help"><div class="section-heading"><div><span class="kicker">HELP CENTER • مركز المساعدة</span><h2>إحنا هنا <span>نساعدك</span></h2><p>إجابات لأهم الأسئلة عن استخدام المنصة.</p></div></div><div class="help-grid"><div class="faq-list">
+<details class="faq"><summary>هل لازم أسجّل الدخول كل مرة؟ <i class="fa-solid fa-plus"></i></summary><p>لا. المنصة تحفظ الاسم والمرحلة على نفس الجهاز بعد أول تسجيل. تظل الجلسة محفوظة حتى تضغط تسجيل الخروج أو تمسح بيانات الموقع. هذا تسجيل محلي وليس نظام حسابات سحابيًا.</p></details>
+<details class="faq"><summary>هل مهام المذاكرة والملاحظات بتتحفظ؟ <i class="fa-solid fa-plus"></i></summary><p>نعم، تُحفظ في متصفحك على نفس الجهاز. قد تفقدها إذا مسحت بيانات الموقع، ولا تنتقل تلقائيًا إلى جهاز آخر.</p></details>
+<details class="faq"><summary>إزاي أغيّر الوضع الليلي والنهاري؟ <i class="fa-solid fa-plus"></i></summary><p>اضغط زر القمر أو الشمس في الشريط العلوي. اختيارك يُحفظ على الجهاز.</p></details>
+<details class="faq"><summary>هل المنصة فيها دروس وفيديوهات؟ <i class="fa-solid fa-plus"></i></summary><p>النسخة الحالية فيها أدوات تنظيم المذاكرة والملاحظات. إضافة الدروس والفيديوهات تحتاج إدراج المواد والروابط التعليمية الفعلية.</p></details>
+<details class="faq"><summary>إزاي أسجّل الخروج؟ <i class="fa-solid fa-plus"></i></summary><p>اضغط تسجيل الخروج من القائمة الجانبية. عند العودة ستحتاج إلى إدخال اسمك ومرحلتك مرة أخرى.</p></details>
+</div><div class="card support"><div class="support-icon"><i class="fa-solid fa-headset"></i></div><h3>محتاج مساعدة إضافية؟</h3><p>لو عندك سؤال عن استخدام المنصة، تقدر تتواصل عبر مجموعة الواتساب.</p><a class="btn whatsapp" href="https://chat.whatsapp.com/LrNPKu3gZwZD2MFvWQDZ04?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> مجموعة الدعم على واتساب</a><small>سيتم فتح واتساب في نافذة جديدة.</small></div></div></section>
+
+<footer class="footer"><a class="footer-brand" href="#home"><i class="fa-solid fa-landmark"></i> تاريخ الرقي</a><p>التعليم رحلة، والفهم بداية التميز.</p><span>© <span id="year"></span> منصة تاريخ الرقي • الأستاذ محمد الجداوي</span><a href="#home" class="back-top" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></a></footer>
+</main></div>
+
+<div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><div class="modal"><button class="close-modal" id="closeModal" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button><div class="modal-brand"><div class="brand-icon"><i class="fa-solid fa-landmark"></i></div><span>تاريخ الرقي</span></div><div class="modal-heading"><span class="kicker">WELCOME • أهلًا بيك</span><h2 id="loginTitle">ابدأ رحلتك <span>التعليمية</span></h2><p>اكتب اسمك واختار مرحلتك الدراسية لحفظ ملفك على الجهاز.</p></div><form id="loginForm"><div class="field"><label for="studentName">اسم الطالب</label><div class="field-icon"><i class="fa-regular fa-user"></i><input id="studentName" maxlength="60" placeholder="اكتب اسمك هنا" autocomplete="name" required></div></div><div class="field"><label for="studentGrade">المرحلة الدراسية</label><div class="field-icon"><i class="fa-solid fa-graduation-cap"></i><select id="studentGrade" required><option value="">اختار مرحلتك</option><option>الصف الأول الثانوي</option><option>الصف الثاني الثانوي</option><option>الصف الثاني الثانوي - البكالوريا</option><option>الصف الثالث الثانوي</option></select></div></div><button class="btn btn-gold submit-login" type="submit">دخول إلى المنصة <i class="fa-solid fa-arrow-left"></i></button><p class="privacy"><i class="fa-solid fa-shield-halved"></i> بيانات الاسم والمرحلة تُحفظ محليًا على هذا الجهاز فقط.</p></form></div></div>
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const safeParse=(key,fallback)=>{try{const v=JSON.parse(localStorage.getItem(key));return v===null?fallback:v}catch{return fallback}};
+const state={user:safeParse("roqi_user",null),tasks:safeParse("roqi_tasks",[]),notes:safeParse("roqi_notes",[]),theme:localStorage.getItem("roqi_theme")||"light"};
+const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));return true}catch{toast("تعذّر الحفظ. قد تكون مساحة المتصفح ممتلئة.");return false}};
+const text=(tag,value,className)=>{const e=document.createElement(tag);e.textContent=value;if(className)e.className=className;return e};
+function toast(message){const t=document.createElement("div");t.className="toast";const i=document.createElement("i");i.className="fa-solid fa-circle-check";t.append(i,text("span",message));$("toastContainer").append(t);setTimeout(()=>t.remove(),3200)}
+function applyTheme(){document.body.classList.toggle("dark",state.theme==="dark");$("themeBtn").innerHTML=state.theme==="dark"?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';try{localStorage.setItem("roqi_theme",state.theme)}catch{}}
+function setUser(user){state.user=user;if(user){save("roqi_user",user);$("sideName").textContent=user.name;$("sideGrade").textContent=user.grade;$("topName").textContent=user.name;$("loginModal").classList.remove("show")}else{try{localStorage.removeItem("roqi_user")}catch{}$("sideName").textContent="زائر المنصة";$("sideGrade").textContent="رحلتك التعليمية";$("topName").textContent="زائر";openLogin()} }
+function openLogin(){$("studentName").value=state.user?.name||"";$("studentGrade").value=state.user?.grade||"";$("loginModal").classList.add("show");setTimeout(()=>$("studentName").focus(),100)}
+function closeLogin(){if(state.user)$("loginModal").classList.remove("show")}
+function updateStats(){const total=state.tasks.length,done=state.tasks.filter(t=>t.done).length,pct=total?Math.round(done/total*100):0;$("statTasks").textContent=total;$("statProgress").textContent=pct+"%";$("statNotes").textContent=state.notes.length;$("taskCount").textContent=total+" مهام";$("noteCount").textContent=state.notes.length+" ملاحظات";$("progressText").textContent=pct+"%";$("progressBar").style.width=pct+"%";$("emptyTasks").style.display=total?"none":"flex";$("emptyNotes").style.display=state.notes.length?"none":"flex"}
+function renderTasks(){const list=$("taskList");list.replaceChildren();state.tasks.forEach(task=>{const row=document.createElement("div");row.className="task-item"+(task.done?" completed":"");const check=document.createElement("input");check.type="checkbox";check.className="task-check";check.checked=!!task.done;check.setAttribute("aria-label","إنجاز المهمة");check.addEventListener("change",()=>{task.done=check.checked;save("roqi_tasks",state.tasks);renderTasks();updateStats()});const main=document.createElement("div");main.className="task-text";main.append(text("strong",task.title));main.append(text("small",task.date?"الموعد: "+task.date:"مهمة بدون موعد"));const del=document.createElement("button");del.className="delete-btn";del.type="button";del.setAttribute("aria-label","حذف المهمة");del.innerHTML='<i class="fa-solid fa-trash"></i>';del.addEventListener("click",()=>{if(!confirm("هل تريد حذف هذه المهمة؟"))return;state.tasks=state.tasks.filter(t=>t.id!==task.id);save("roqi_tasks",state.tasks);renderTasks();updateStats();toast("تم حذف المهمة")});row.append(check,main,del);list.append(row)});updateStats()}
+function renderNotes(){const list=$("notesList");list.replaceChildren();state.notes.forEach(note=>{const card=document.createElement("article");card.className="note-card";const top=document.createElement("div");top.className="note-top";top.append(text("h4",note.title));top.append(text("span",note.category,"note-category"));const p=text("p",note.content);const date=text("div",note.date,"note-date");const del=document.createElement("button");del.className="delete-btn";del.type="button";del.innerHTML='<i class="fa-solid fa-trash"></i> حذف';del.addEventListener("click",()=>{if(!confirm("هل تريد حذف الملاحظة؟"))return;state.notes=state.notes.filter(n=>n.id!==note.id);save("roqi_notes",state.notes);renderNotes();toast("تم حذف الملاحظة")});card.append(top,p,date,del);list.append(card)});updateStats()}
+$("
