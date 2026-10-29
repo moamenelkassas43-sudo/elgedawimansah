@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a1020">
+  <meta name="description" content="منصة تاريخ الرقي التعليمية للأستاذ محمد الجداوي">
+  <title>تاريخ الرقي | الأستاذ محمد الجداوي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script>try{const t=localStorage.getItem('tr-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+  <div class="background-art" aria-hidden="true"></div>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-layout">
+      <div class="auth-story">
+        <a class="mini-brand" href="#" aria-label="تاريخ الرقي">
+          <span class="brand-symbol"><i class="fa-solid fa-landmark"></i></span>
+          <span><b>تاريخ الرقي</b><small>الأستاذ محمد الجداوي</small></span>
+        </a>
+        <div class="story-copy">
+          <span class="eyebrow"><i class="fa-solid fa-sparkles"></i> المعرفة تبدأ بسؤال</span>
+          <h1>افهم الحكاية،<br><span>واصنع حكايتك.</span></h1>
+          <p>منصة تاريخية بتجربة بسيطة ومنظمة، تساعدك تتابع محتوى المنصة وتوصل للمعلومات المهمة من غير دوشة.</p>
+          <div class="story-points">
+            <div><i class="fa-solid fa-check"></i><span>واجهة سهلة على الموبايل والتابلت والكمبيوتر</span></div>
+            <div><i class="fa-solid fa-check"></i><span>حساب شخصي عند تشغيل الخادم</span></div>
+            <div><i class="fa-solid fa-check"></i><span>وضع ليلي ونهاري على مزاجك</span></div>
+          </div>
+        </div>
+        <div class="story-foot"><span class="story-line"></span> تاريخ نفهمه، مش مجرد تواريخ نحفظها.</div>
+      </div>
+
+      <div class="auth-card panel">
+        <div class="auth-card-head">
+          <div class="teacher-avatar"><img src="https://i.postimg.cc/j2c4vzD6/IMG-20261028-041451.png" alt="الأستاذ محمد الجداوي"></div>
+          <div class="teacher-info"><span class="small-label">أهلاً بيك في</span><h2>تاريخ <span>الرقي</span></h2><p>الأستاذ محمد الجداوي · كبير مدرسين التاريخ</p></div>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="تغيير الوضع" title="تغيير الوضع"><i class="fa-solid fa-moon"></i></button>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="اختيار الدخول">
+          <button class="auth-tab active" id="loginTab" type="button" role="tab" aria-selected="true">تسجيل الدخول</button>
+          <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false">إنشاء حساب</button>
+        </div>
+
+        <form id="authForm" novalidate>
+          <div id="nameField" class="field hidden">
+            <label for="studentName">اسمك الثلاثي</label>
+            <div class="input-box"><i class="fa-regular fa-user"></i><input id="studentName" name="name" autocomplete="name" maxlength="90" placeholder="اكتب اسمك الثلاثي"></div>
+          </div>
+
+          <div class="field">
+            <label for="studentPhone">رقم الموبايل المصري</label>
+            <div class="input-box"><i class="fa-solid fa-mobile-screen-button"></i><input id="studentPhone" name="phone" inputmode="tel" autocomplete="tel-national" maxlength="11" placeholder="01xxxxxxxxx" required></div>
+          </div>
+
+          <div class="field">
+            <label for="studentPassword">كلمة المرور</label>
+            <div class="input-box"><i class="fa-solid fa-lock"></i><input id="studentPassword" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="72" placeholder="8 أحرف أو أرقام على الأقل" required><button class="password-toggle" id="passwordToggle" type="button" aria-label="إظهار كلمة المرور"><i class="fa-regular fa-eye"></i></button></div>
+          </div>
+
+          <div id="extraFields" class="hidden">
+            <div class="field">
+              <label for="studentGrade">الصف الدراسي</label>
+              <div class="input-box"><i class="fa-solid fa-book-open"></i><select id="studentGrade" name="grade"><option value="الأول الثانوي">الأول الثانوي</option><option value="الثاني الثانوي">الثاني الثانوي</option><option value="الثاني الثانوي (البكالوريا)">الثاني الثانوي (البكالوريا)</option><option value="الثالث الثانوي">الثالث الثانوي</option></select><i class="fa-solid fa-chevron-down select-chevron"></i></div>
+            </div>
+            <div class="field">
+              <label for="studentGender">ستايل المنصة</label>
+              <div class="input-box"><i class="fa-solid fa-palette"></i><select id="studentGender" name="gender"><option value="male">أزرق ملكي</option><option value="female">وردي هادي</option></select><i class="fa-solid fa-chevron-down select-chevron"></i></div>
+            </div>
+          </div>
+
+          <p class="privacy-hint"><i class="fa-solid fa-shield-halved"></i> بيانات الحساب تُرسل للخادم عند تشغيله. لا تستخدم كلمة مرور حساباتك الأخرى.</p>
+          <button id="submitBtn" class="primary-btn" type="submit"><span id="submitText">ادخل المنصة</span><i class="fa-solid fa-arrow-left-long"></i></button>
+          <p id="authMessage" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="auth-bottom"><span>تعلّم بفهم</span><i></i><span>اتقدم بثقة</span><i></i><button type="button" data-open-help>مساعدة؟</button></div>
+      </div>
+    </div>
+    <p class="auth-copyright">© <span class="year"></span> تاريخ الرقي · تجربة تعليمية للطلاب</p>
+  </section>
+
+  <div id="appScreen" class="app-screen hidden">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#home">
+          <span class="brand-symbol"><i class="fa-solid fa-landmark"></i></span>
+          <span><b>تاريخ الرقي</b><small>الأستاذ محمد الجداوي</small></span>
+        </a>
+        <nav class="desktop-nav" aria-label="التنقل">
+          <a class="nav-link active" href="#home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+          <a class="nav-link" href="#learning"><i class="fa-solid fa-book-open"></i> المحتوى</a>
+          <a class="nav-link" href="#updates"><i class="fa-regular fa-bell"></i> المستجدات</a>
+          <a class="nav-link" href="#community"><i class="fa-solid fa-people-group"></i> مجتمعنا</a>
+        </nav>
+        <div class="topbar-actions">
+          <button class="round-btn" id="helpButton" type="button" aria-label="المساعدة والدعم" title="المساعدة والدعم"><i class="fa-regular fa-circle-question"></i></button>
+          <button class="round-btn" id="appThemeToggle" type="button" aria-label="تغيير الوضع" title="الوضع الليلي والنهاري"><i class="fa-solid fa-moon"></i></button>
+          <button class="round-btn mobile-only" id="mobileMenuButton" type="button" aria-label="القائمة" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+          <button class="logout-btn" id="logoutBtn" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>خروج</span></button>
+        </div>
+      </div>
+      <nav id="mobileNav" class="mobile-nav hidden" aria-label="قائمة الهاتف">
+        <a href="#home">الرئيسية</a><a href="#learning">المحتوى</a><a href="#updates">المستجدات</a><a href="#community">مجتمعنا</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero container">
+        <div class="hero-copy">
+          <div class="status-pill"><span class="status-dot"></span> مساحتك التعليمية جاهزة</div>
+          <p class="hero-kicker">أهلاً بيك في رحلتك الجديدة</p>
+          <h1>التاريخ مش مجرد ماضي،<br><span>ده مفتاح لفهم الحاضر.</span></h1>
+          <p class="hero-description">أهلاً يا <strong id="displayName">طالبنا العزيز</strong>، هنا هتلاقي تجربة تعليمية منظمة تساعدك تفهم الأحداث وتربط الأسباب بالنتائج، خطوة بخطوة.</p>
+          <div class="hero-buttons">
+            <a href="#learning" class="primary-btn"><span>يلا نبدأ</span><i class="fa-solid fa-arrow-left-long"></i></a>
+            <button type="button" class="secondary-btn" data-open-help><i class="fa-regular fa-circle-question"></i> محتاج مساعدة؟</button>
+          </div>
+          <div class="hero-caption"><span class="caption-icon"><i class="fa-solid fa-lightbulb"></i></span><span>نصيحة صغيرة: افهم القصة الأول، وبعدها التفاصيل هتثبت أسهل.</span></div>
+        </div>
+        <div class="hero-art">
+          <div class="hero-glow"></div><div class="hero-ring ring-one"></div><div class="hero-ring ring-two"></div>
+          <div class="hero-image-frame"><img src="https://i.postimg.cc/j2c4vzD6/IMG-20261028-041451.png" alt="الأستاذ محمد الجداوي"></div>
+          <div class="floating-note note-one"><span class="note-icon"><i class="fa-solid fa-book-open"></i></span><span><small>هدفنا</small><b>فهم قبل الحفظ</b></span></div>
+          <div class="floating-note note-two"><span class="note-icon gold-note"><i class="fa-solid fa-graduation-cap"></i></span><span><small>رحلتك</small><b>خطوة كل يوم</b></span></div>
+          <span class="hero-serial">HISTORY / 2026</span>
+        </div>
+      </section>
+
+      <section class="profile-strip container">
+        <div class="profile-symbol"><i class="fa-regular fa-user"></i></div>
+        <div class="profile-welcome"><small>مساحتك الشخصية</small><h2>عامل إيه، <span id="profileName">يا بطل</span>؟</h2><p>كمّل رحلتك، وخلي كل يوم فيه معلومة جديدة.</p></div>
+        <div class="profile-detail"><small>الصف الدراسي</small><strong id="profileGrade">—</strong></div>
+        <div class="profile-detail"><small>حالة الحساب</small><strong id="profileStatus">—</strong></div>
+      </section>
+
+      <section id="learning" class="section container">
+        <div class="section-heading"><div><span class="section-kicker">YOUR LEARNING SPACE</span><h2>مساحات <span>التعلّم</span></h2><p>اختار القسم اللي محتاجه، وابدأ منه.</p></div><span class="section-index">01 <i class="fa-solid fa-arrow-up-left-from-circle"></i></span></div>
+        <div class="feature-grid">
+          <article class="feature-card"><div class="feature-card-top"><span class="feature-icon icon-gold"><i class="fa-solid fa-book-open-reader"></i></span><span class="feature-no">01</span></div><small class="feature-kicker">LEARN & UNDERSTAND</small><h3>المحتوى الدراسي</h3><p>قسم مخصص للدروس والمراجعات والملخصات. هتظهر المواد الفعلية هنا بعد إضافة محتوى المدرس.</p><a href="#updates" class="text-link">شوف المستجدات <i class="fa-solid fa-arrow-left"></i></a></article>
+          <article class="feature-card"><div class="feature-card-top"><span class="feature-icon icon-blue"><i class="fa-solid fa-circle-play"></i></span><span class="feature-no">02</span></div><small class="feature-kicker">WATCH & DISCOVER</small><h3>مكتبة الفيديو</h3><p>مكان منظم للشروحات المرئية والمراجعات، مع إمكانية إضافة روابط الدروس وتصنيفها.</p><a href="#updates" class="text-link">اكتشف القسم <i class="fa-solid fa-arrow-left"></i></a></article>
+          <article class="feature-card"><div class="feature-card-top"><span class="feature-icon icon-purple"><i class="fa-solid fa-brain"></i></span><span class="feature-no">03</span></div><small class="feature-kicker">THINK & GROW</small><h3>نصائح دراسية</h3><p>طرق بسيطة لتنظيم وقتك، وفهم الأحداث التاريخية، ومراجعة المعلومات على مراحل.</p><a href="#studyTips" class="text-link">اقرأ النصيحة <i class="fa-solid fa-arrow-left"></i></a></article>
+        </div>
+      </section>
+
+      <section id="updates" class="section container">
+        <div class="section-heading"><div><span class="section-kicker">LATEST UPDATES</span><h2>آخر <span>المستجدات</span></h2><p>محتوى توضيحي قابل للتغيير من إدارة المنصة.</p></div><span class="section-index">02 <i class="fa-regular fa-bell"></i></span></div>
+        <div class="updates-grid">
+          <article class="update-card"><div class="update-art art-one"><i class="fa-regular fa-newspaper"></i><span>PLATFORM NEWS</span></div><div class="update-content"><span class="tag">إعلانات</span><h3>تابع إعلانات المنصة</h3><p>خصصنا المساحة دي لمواعيد المراجعات والتنبيهات المهمة للطلاب.</p></div></article>
+          <article class="update-card"><div class="update-art art-two"><i class="fa-solid fa-play"></i><span>VIDEO LIBRARY</span></div><div class="update-content"><span class="tag tag-blue">فيديوهات</span><h3>مكتبة الشرح والمراجعة</h3><p>هتقدر توصل من هنا لفيديوهات الشرح لما يتم إضافة روابطها.</p></div></article>
+          <article id="studyTips" class="update-card"><div class="update-art art-three"><i class="fa-solid fa-lightbulb"></i><span>STUDY SMARTER</span></div><div class="update-content"><span class="tag tag-purple">نصيحة</span><h3>اربط السبب بالنتيجة</h3><p>لما تذاكر حدث تاريخي، اسأل نفسك: حصل ليه؟ ونتج عنه إيه؟</p></div></article>
+        </div>
+      </section>
+
+      <section id="community" class="community container">
+        <div class="community-copy"><span class="section-kicker">LEARN TOGETHER</span><h2>التعلّم أحلى <span>مع بعض</span></h2><p>انضم لمجتمع الطلاب من خلال رابط المجموعة، واتأكد إن المجموعة مناسبة لصفك.</p><small><i class="fa-solid fa-circle-info"></i> التزم بقواعد المجموعة واحترم زملاءك.</small></div>
+        <a class="whatsapp-button" href="https://chat.whatsapp.com/LrNPKu3gZwZD2MFvWQDZ04?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i><span><b>جروب واتساب</b><small>طلاب تانية بكالوريا</small></span><i class="fa-solid fa-arrow-up-left-from-circle"></i></a>
+      </section>
+    </main>
+
+    <footer class="footer"><a href="#home" class="footer-brand"><i class="fa-solid fa-landmark"></i> تاريخ الرقي</a><p>التاريخ نفهمه، مش مجرد تواريخ نحفظها.</p><small>© <span class="year"></span> منصة تاريخ الرقي · الأستاذ محمد الجداوي</small></footer>
+  </div>
+
+  <div id="helpModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="help-dialog">
+      <div class="dialog-header"><span class="dialog-icon"><i class="fa-regular fa-circle-question"></i></span><div><small>HELP CENTER</small><h2 id="helpTitle">المساعدة والدعم</h2></div><button id="closeHelp" class="close-btn" type="button" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="help-content">
+        <details open><summary><i class="fa-solid fa-right-to-bracket"></i> أستخدم المنصة إزاي؟</summary><p>لو عندك حساب، اختار تسجيل الدخول واكتب رقم الموبايل وكلمة المرور. لو أول مرة، اختار «إنشاء حساب» وكمّل البيانات المطلوبة.</p></details>
+        <details><summary><i class="fa-solid fa-user-plus"></i> أعمل حساب جديد إزاي؟</summary><p>اضغط «إنشاء حساب»، واكتب اسمك الثلاثي ورقم الموبايل المصري وكلمة مرور قوية، وبعدها اختار صفك الدراسي.</p></details>
+        <details><summary><i class="fa-solid fa-key"></i> نسيت كلمة المرور</summary><p>استعادة كلمة المرور غير مفعلة في النسخة دي. تواصل مع مسؤول المنصة بعد إعداد وسيلة دعم موثوقة.</p></details>
+        <details><summary><i class="fa-solid fa-moon"></i> أغيّر الوضع الليلي والنهاري إزاي؟</summary><p>اضغط زر القمر أو الشمس أعلى الصفحة. اختيارك بيتحفظ على جهازك.</p></details>
+        <details><summary><i class="fa-solid fa-server"></i> هل الحساب بيتحفظ؟</summary><p>حفظ الحسابات الحقيقي يحتاج تشغيل الخادم الموجود مع المشروع. لا ترفع بيانات حقيقية على استضافة ثابتة من غير إعداد الخادم وتأمينه.</p></details>
+      </div>
+      <div class="support-footer"><i class="fa-solid fa-headset"></i><span>لسه محتاج مساعدة؟ تواصل مع مسؤول المنصة من خلال وسيلة الدعم المعتمدة عند مدرسك.</span></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js" defer></script>
+</body>
+</html>
