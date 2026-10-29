@@ -2,208 +2,150 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1120">
+<meta name="description" content="منصة تاريخ الرقي التعليمية للأستاذ محمد الجداوي">
 <title>منصة تاريخ الرقي | الأستاذ محمد الجداوي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="./style.css">
+<script src="./script.js" defer></script>
 </head>
 <body>
-<div class="app-shell">
-<aside class="sidebar" id="sidebar">
-<div class="brand">
-<div class="brand-logo"><i class="fa-solid fa-landmark"></i></div>
-<div class="brand-text"><h2>تاريخ الرقي</h2><span>رحلتك نحو التفوق</span></div>
-<button class="icon-btn close-sidebar" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
-</div>
-<div class="sidebar-teacher">
-<div class="teacher-photo"><img src="https://i.postimg.cc/j2c4vzD6/IMG-20261028-041451.png" alt="الأستاذ محمد الجداوي"></div>
-<h3>الأستاذ محمد الجداوي</h3>
-<p>كبير معلمي التاريخ</p>
-<div class="teacher-badge"><i class="fa-solid fa-circle-check"></i> معًا نحو القمة</div>
-</div>
-<div class="nav-heading">القائمة الرئيسية</div>
-<nav class="navigation">
-<a href="#home" class="nav-link active" data-section="home"><i class="fa-solid fa-house"></i><span>الرئيسية</span></a>
-<a href="#about" class="nav-link" data-section="about"><i class="fa-solid fa-graduation-cap"></i><span>عن المنصة</span></a>
-<a href="#study" class="nav-link" data-section="study"><i class="fa-solid fa-book-open"></i><span>خطة المذاكرة</span></a>
-<a href="#tasks" class="nav-link" data-section="tasks"><i class="fa-solid fa-list-check"></i><span>مهامي الدراسية</span></a>
-<a href="#notes" class="nav-link" data-section="notes"><i class="fa-solid fa-note-sticky"></i><span>دفتر الملاحظات</span></a>
-<a href="#help" class="nav-link" data-section="help"><i class="fa-solid fa-circle-question"></i><span>المساعدة</span></a>
-</nav>
-<div class="sidebar-bottom">
-<div class="sidebar-quote"><i class="fa-solid fa-quote-right"></i><p>بالعلم ترتقي العقول، وبالتاريخ نفهم الحاضر ونصنع المستقبل.</p></div>
-<button class="logout-btn" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i><span>تسجيل الخروج</span></button>
-<div class="sidebar-footer">رحلة تعليمية أفضل تبدأ بخطوة</div>
-</div>
-</aside>
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-<main class="main-content">
+<div class="background-overlay"></div>
+
 <header class="topbar">
-<div class="topbar-right">
-<button class="icon-btn menu-btn" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></button>
-<div class="breadcrumb"><span>منصة تاريخ الرقي</span><i class="fa-solid fa-chevron-left"></i><strong id="currentPage">الرئيسية</strong></div>
-</div>
-<div class="topbar-left">
-<div class="date-display"><i class="fa-regular fa-calendar"></i><span id="currentDate"></span></div>
-<button class="icon-btn" id="themeToggle"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
-<button class="profile-mini" id="profileBtn"><span id="profileInitial">ط</span></button>
-</div>
+    <a href="#" class="brand" aria-label="منصة تاريخ الرقي">
+        <div class="brand-icon"><i class="fa-solid fa-landmark"></i></div>
+        <div class="brand-text">
+            <strong>تاريخ الرقي</strong>
+            <span>منصة الأستاذ محمد الجداوي</span>
+        </div>
+    </a>
+    <button class="logout-button hidden" id="logoutButton" type="button">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        تسجيل الخروج
+    </button>
 </header>
-<div class="page-container">
 
-<section class="page-section active" id="home">
-<div class="welcome-banner">
-<div class="welcome-content">
-<div class="welcome-label"><i class="fa-solid fa-star"></i> بوابتك إلى التفوق</div>
-<h1>أهلًا بيك يا <span id="welcomeName">قائد المستقبل</span> 👋</h1>
-<p>رحلتك في عالم التاريخ تبدأ من هنا. نظّم وقتك، تابع إنجازاتك، واجعل كل يوم خطوة جديدة نحو النجاح.</p>
-<div class="welcome-actions">
-<a href="#study" class="primary-btn" data-goto="study"><i class="fa-solid fa-rocket"></i> ابدأ رحلتك</a>
-<a href="#about" class="secondary-btn" data-goto="about"><i class="fa-solid fa-circle-info"></i> اكتشف المنصة</a>
-</div>
-</div>
-<div class="welcome-decoration">
-<div class="decoration-circle circle-one"></div>
-<div class="decoration-circle circle-two"></div>
-<div class="decoration-icon"><i class="fa-solid fa-landmark-dome"></i></div>
-<div class="floating-card floating-card-top"><i class="fa-solid fa-book-open"></i><span>تعلّم كل يوم</span></div>
-<div class="floating-card floating-card-bottom"><i class="fa-solid fa-trophy"></i><span>اصنع إنجازك</span></div>
-</div>
-</div>
-<div class="section-heading">
-<div><span class="eyebrow">لوحة المتابعة</span><h2>رحلتك الدراسية بالأرقام</h2><p>تابع تقدمك وحافظ على استمراريتك.</p></div>
-<div class="grade-chip"><i class="fa-solid fa-graduation-cap"></i><span id="homeGrade">المرحلة الثانوية</span></div>
-</div>
-<div class="stats-grid">
-<div class="stat-card"><div class="stat-icon stat-gold"><i class="fa-solid fa-list-check"></i></div><div class="stat-info"><span>إجمالي المهام</span><strong id="totalTasks">0</strong><small>المهام التي أضفتها</small></div></div>
-<div class="stat-card"><div class="stat-icon stat-green"><i class="fa-solid fa-circle-check"></i></div><div class="stat-info"><span>المهام المكتملة</span><strong id="completedTasks">0</strong><small>خطوات أنجزتها بنجاح</small></div></div>
-<div class="stat-card"><div class="stat-icon stat-blue"><i class="fa-solid fa-chart-line"></i></div><div class="stat-info"><span>نسبة الإنجاز</span><strong id="completionRate">0%</strong><small>تقدمك في مهامك</small></div></div>
-</div>
-<div class="dashboard-grid">
-<div class="panel progress-panel">
-<div class="panel-heading"><div><h3><i class="fa-solid fa-bullseye"></i> ملخص الإنجاز</h3><p>كل خطوة صغيرة تقرّبك من هدفك.</p></div><span class="live-dot">متابعة مستمرة</span></div>
-<div class="progress-content">
-<div class="progress-ring" id="progressRing"><div class="progress-ring-inner"><strong id="ringPercentage">0%</strong><span>نسبة الإنجاز</span></div></div>
-<div class="progress-details"><h4 id="progressTitle">بداية موفقة!</h4><p id="progressMessage">أضف أول مهمة دراسية لتبدأ متابعة تقدمك.</p><a href="#tasks" class="text-link" data-goto="tasks">إدارة المهام <i class="fa-solid fa-arrow-left"></i></a></div>
-</div>
-</div>
-<div class="panel quick-panel">
-<div class="panel-heading"><div><h3><i class="fa-solid fa-bolt"></i> وصول سريع</h3><p>كل ما تحتاجه في مكان واحد.</p></div></div>
-<div class="quick-links">
-<a href="#tasks" class="quick-link" data-goto="tasks"><span class="quick-icon"><i class="fa-solid fa-plus"></i></span><span><strong>أضف مهمة</strong><small>نظّم واجباتك</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></a>
-<a href="#notes" class="quick-link" data-goto="notes"><span class="quick-icon"><i class="fa-solid fa-pen"></i></span><span><strong>دوّن ملاحظاتك</strong><small>احتفظ بأفكارك</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></a>
-<a href="#study" class="quick-link" data-goto="study"><span class="quick-icon"><i class="fa-solid fa-book"></i></span><span><strong>خطة المذاكرة</strong><small>نظّم وقتك</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></a>
-</div>
-</div>
-</div>
-<div class="panel latest-tasks-panel">
-<div class="panel-heading"><div><h3><i class="fa-solid fa-clock"></i> أحدث مهامك</h3><p>نظرة سريعة على ما تعمل عليه.</p></div><a href="#tasks" class="text-link" data-goto="tasks">عرض الكل <i class="fa-solid fa-arrow-left"></i></a></div>
-<div id="latestTasks" class="latest-tasks"></div>
-</div>
-</section>
+<main class="main-container">
+    <section class="welcome-section">
+        <div class="welcome-content">
+            <span class="eyebrow"><i class="fa-solid fa-book-open"></i> رحلة المعرفة تبدأ هنا</span>
+            <h1>التاريخ ليس ماضيًا نقرؤه،<br><span>بل وعيٌ نصنع به المستقبل.</span></h1>
+            <p>أهلًا بك في منصة تاريخ الرقي، حيث نفهم أحداث الماضي ونكتشف أسرار الحضارات مع الأستاذ محمد الجداوي.</p>
+        </div>
+        <div class="teacher-image-wrap">
+            <div class="teacher-frame">
+                <img src="https://i.postimg.cc/j2c4vzD6/IMG-20261028-041451.png" alt="الأستاذ محمد الجداوي" class="teacher-image">
+            </div>
+            <div class="teacher-caption">
+                <span class="caption-line"></span>
+                <div>
+                    <strong>الأستاذ محمد الجداوي</strong>
+                    <small>كبير معلمي التاريخ</small>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="page-section" id="about">
-<div class="page-title"><span class="eyebrow">عن تجربتك التعليمية</span><h1>أهلًا بك في منصة تاريخ الرقي</h1><p>مساحة تعليمية تساعدك على تنظيم رحلتك الدراسية وتطوير عاداتك التعليمية.</p></div>
-<div class="about-hero panel"><div class="about-hero-icon"><i class="fa-solid fa-landmark-dome"></i></div><div><span class="eyebrow">تاريخ نفهمه.. ومستقبل نصنعه</span><h2>التاريخ ليس مجرد أحداث، بل حكاية الإنسان والحضارة.</h2><p>تهدف المنصة إلى مساعدتك على متابعة مهامك وتخطيط مذاكرتك وتدوين ملاحظاتك في مكان واحد.</p></div></div>
-<div class="features-grid">
-<div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-bullseye"></i></div><h3>وضوح الأهداف</h3><p>قسّم أهدافك الدراسية إلى خطوات صغيرة يسهل متابعتها وإنجازها.</p></div>
-<div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div><h3>تنظيم الوقت</h3><p>خطّط ليومك وحدد أولوياتك حتى تستفيد من وقت المذاكرة.</p></div>
-<div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-chart-simple"></i></div><h3>متابعة التقدم</h3><p>تابع المهام التي أنجزتها واعرف مستوى تقدمك.</p></div>
-<div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-lightbulb"></i></div><h3>التعلم المستمر</h3><p>اجعل المعرفة عادة يومية في طريقك نحو التفوق.</p></div>
-</div>
-<div class="panel teacher-about"><div class="teacher-about-photo"><img src="https://i.postimg.cc/j2c4vzD6/IMG-20261028-041451.png" alt="الأستاذ محمد الجداوي"></div><div><span class="eyebrow">معلمك في رحلة المعرفة</span><h2>الأستاذ محمد الجداوي</h2><p>كبير معلمي التاريخ، يرافقك في رحلتك لفهم التاريخ وتنظيم مسيرتك التعليمية.</p><div class="teacher-specialty"><i class="fa-solid fa-book-open"></i> التاريخ والحضارة</div></div></div>
-</section>
+    <section class="login-section" id="loginSection">
+        <div class="section-heading">
+            <span class="heading-icon"><i class="fa-solid fa-user-graduate"></i></span>
+            <div>
+                <h2>ابدأ رحلتك التعليمية</h2>
+                <p>أدخل بياناتك للانتقال إلى المنصة.</p>
+            </div>
+        </div>
 
-<section class="page-section" id="study">
-<div class="page-title"><span class="eyebrow">خطّط بذكاء</span><h1>خطة المذاكرة</h1><p>نظّم جلسات المذاكرة الخاصة بك، وابدأ بالأهم فالمهم.</p></div>
-<div class="study-tip"><div class="study-tip-icon"><i class="fa-solid fa-lightbulb"></i></div><div><strong>نصيحة اليوم</strong><p>حدّد هدفًا واضحًا لكل جلسة مذاكرة، وخذ استراحة قصيرة بين فترات التركيز.</p></div></div>
-<div class="panel study-planner">
-<div class="panel-heading"><div><h3><i class="fa-solid fa-calendar-days"></i> خطتك اليومية</h3><p>أضف المواد والأنشطة التي تريد إنجازها.</p></div><span class="date-pill" id="studyDate"></span></div>
-<form id="studyForm" class="form-grid">
-<div class="form-group"><label for="studySubject">المادة أو النشاط</label><input type="text" id="studySubject" placeholder="مثال: مراجعة درس التاريخ" required maxlength="100"></div>
-<div class="form-group"><label for="studyTime">الوقت المقترح</label><input type="time" id="studyTime" required></div>
-<div class="form-group"><label for="studyDuration">المدة بالدقائق</label><input type="number" id="studyDuration" min="5" max="600" value="45" required></div>
-<div class="form-group"><label for="studyPriority">الأولوية</label><select id="studyPriority"><option value="normal">عادية</option><option value="high">مهمة</option><option value="urgent">عاجلة</option></select></div>
-<div class="form-actions"><button type="submit" class="primary-btn"><i class="fa-solid fa-plus"></i> إضافة للخطة</button></div>
-</form>
-<div class="divider"></div><div class="list-heading"><h3>جدول المذاكرة</h3><span id="studyCount" class="count-badge">0 عناصر</span></div>
-<div id="studyPlanList" class="study-plan-list"></div>
-</div>
-</section>
+        <form id="loginForm" autocomplete="on">
+            <div class="form-group">
+                <label for="studentName">اسم الطالب</label>
+                <div class="input-wrap">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="studentName" name="studentName" placeholder="اكتب اسمك بالكامل" maxlength="70" required autocomplete="name">
+                </div>
+            </div>
 
-<section class="page-section" id="tasks">
-<div class="page-title"><span class="eyebrow">خطوة جديدة نحو النجاح</span><h1>مهامي الدراسية</h1><p>أضف واجباتك، تابع إنجازك، وحافظ على تنظيم يومك الدراسي.</p></div>
-<div class="task-summary"><div class="task-summary-item"><span>كل المهام</span><strong id="taskSummaryTotal">0</strong></div><div class="task-summary-item"><span>قيد التنفيذ</span><strong id="taskSummaryPending">0</strong></div><div class="task-summary-item"><span>مكتملة</span><strong id="taskSummaryCompleted">0</strong></div></div>
-<div class="panel task-form-panel">
-<div class="panel-heading"><div><h3><i class="fa-solid fa-circle-plus"></i> إضافة مهمة جديدة</h3><p>اكتب المهمة وحدّد موعدها وأولويتها.</p></div></div>
-<form id="taskForm" class="form-grid">
-<div class="form-group form-wide"><label for="taskTitle">عنوان المهمة</label><input type="text" id="taskTitle" placeholder="مثال: مراجعة الوحدة الأولى في التاريخ" maxlength="120" required></div>
-<div class="form-group"><label for="taskSubject">المادة</label><input type="text" id="taskSubject" placeholder="التاريخ" maxlength="60"></div>
-<div class="form-group"><label for="taskDate">تاريخ الاستحقاق</label><input type="date" id="taskDate"></div>
-<div class="form-group"><label for="taskPriority">الأولوية</label><select id="taskPriority"><option value="normal">عادية</option><option value="high">مهمة</option><option value="urgent">عاجلة</option></select></div>
-<div class="form-actions"><button type="submit" class="primary-btn"><i class="fa-solid fa-plus"></i> إضافة المهمة</button></div>
-</form>
-</div>
-<div class="task-toolbar"><div class="filter-tabs" id="taskFilters"><button type="button" class="filter-btn active" data-filter="all">الكل</button><button type="button" class="filter-btn" data-filter="pending">قيد التنفيذ</button><button type="button" class="filter-btn" data-filter="completed">مكتملة</button></div><button type="button" class="clear-completed-btn" id="clearCompleted"><i class="fa-solid fa-trash-can"></i> حذف المكتمل</button></div>
-<div id="tasksList" class="tasks-list"></div>
-</section>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="studentGrade">الصف الدراسي</label>
+                    <div class="select-wrap">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <select id="studentGrade" name="studentGrade" required>
+                            <option value="" selected disabled>اختر الصف الدراسي</option>
+                            <option value="الأول الثانوي">الأول الثانوي</option>
+                            <option value="الثاني الثانوي">الثاني الثانوي</option>
+                            <option value="الثاني الثانوي (البكالوريا)">الثاني الثانوي (البكالوريا)</option>
+                            <option value="الثالث الثانوي">الثالث الثانوي</option>
+                        </select>
+                    </div>
+                </div>
 
-<section class="page-section" id="notes">
-<div class="page-title"><span class="eyebrow">مساحتك الخاصة للأفكار</span><h1>دفتر الملاحظات</h1><p>دوّن ملخصاتك وأسئلتك وأفكارك المهمة.</p></div>
-<div class="notes-layout">
-<div class="panel note-editor"><div class="panel-heading"><div><h3><i class="fa-solid fa-pen-to-square"></i> ملاحظة جديدة</h3><p>احفظ أفكارك في مكان واحد.</p></div></div>
-<form id="noteForm">
-<div class="form-group"><label for="noteTitle">عنوان الملاحظة</label><input type="text" id="noteTitle" placeholder="عنوان مختصر للملاحظة" maxlength="100" required></div>
-<div class="form-group"><label for="noteCategory">التصنيف</label><select id="noteCategory"><option value="ملخص درس">ملخص درس</option><option value="معلومة مهمة">معلومة مهمة</option><option value="سؤال للمراجعة">سؤال للمراجعة</option><option value="أخرى">أخرى</option></select></div>
-<div class="form-group"><label for="noteContent">المحتوى</label><textarea id="noteContent" rows="7" placeholder="اكتب ملاحظاتك هنا..." maxlength="10000" required></textarea></div>
-<button type="submit" class="primary-btn full-btn"><i class="fa-solid fa-floppy-disk"></i> حفظ الملاحظة</button>
-</form></div>
-<div class="notes-content"><div class="notes-toolbar"><h3>ملاحظاتك المحفوظة</h3><span id="notesCount" class="count-badge">0 ملاحظات</span></div><div id="notesList" class="notes-list"></div></div>
-</div>
-</section>
+                <div class="form-group">
+                    <label>النوع</label>
+                    <div class="gender-options">
+                        <label class="gender-option">
+                            <input type="radio" name="studentGender" value="male" required>
+                            <span><i class="fa-solid fa-user"></i> طالب</span>
+                        </label>
+                        <label class="gender-option">
+                            <input type="radio" name="studentGender" value="female" required>
+                            <span><i class="fa-solid fa-user"></i> طالبة</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-<section class="page-section" id="help">
-<div class="page-title"><span class="eyebrow">نحن هنا لمساعدتك</span><h1>مركز المساعدة</h1><p>إجابات عن الأسئلة الشائعة حول استخدام المنصة.</p></div>
-<div class="help-hero panel"><div class="help-hero-icon"><i class="fa-solid fa-headset"></i></div><div><h2>محتاج مساعدة؟</h2><p>تعرّف على أهم وظائف المنصة.</p><a class="primary-btn" href="https://chat.whatsapp.com/LrNPKu3gZwZD2MFvWQDZ04?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> مجموعة التواصل</a></div></div>
-<div class="faq-list">
-<details class="faq-item"><summary><span><i class="fa-solid fa-user"></i> كيف يتم حفظ بياناتي؟</span><i class="fa-solid fa-chevron-down faq-arrow"></i></summary><p>تُحفظ المهام والملاحظات والخطط والإعدادات داخل متصفحك على الجهاز نفسه. مسح بيانات المتصفح قد يؤدي إلى فقدانها.</p></details>
-<details class="faq-item"><summary><span><i class="fa-solid fa-right-to-bracket"></i> هل أحتاج إلى تسجيل الدخول كل مرة؟</span><i class="fa-solid fa-chevron-down faq-arrow"></i></summary><p>تتذكر المنصة اسمك ومرحلتك على الجهاز نفسه. سيُطلب إدخالهما مجددًا إذا سجلت الخروج أو حُذفت البيانات المحلية.</p></details>
-<details class="faq-item"><summary><span><i class="fa-solid fa-list-check"></i> كيف أتابع مهامي؟</span><i class="fa-solid fa-chevron-down faq-arrow"></i></summary><p>أضف المهمة وحدد أولويتها وموعدها، ثم استخدم زر الإنجاز لتحديث تقدمك.</p></details>
-<details class="faq-item"><summary><span><i class="fa-solid fa-moon"></i> هل يمكن تغيير المظهر؟</span><i class="fa-solid fa-chevron-down faq-arrow"></i></summary><p>يمكنك التبديل بين الوضع الليلي والنهاري من زر المظهر في الشريط العلوي.</p></details>
-<details class="faq-item"><summary><span><i class="fa-solid fa-shield-halved"></i> هل لدي حساب سحابي؟</span><i class="fa-solid fa-chevron-down faq-arrow"></i></summary><p>هذه النسخة تحفظ البيانات محليًا، ولا تستخدم نظام حسابات سحابيًا أو مزامنة بين الأجهزة.</p></details>
-</div>
-<div class="support-card"><div><h3>التعلّم رحلة.. وكل سؤال بداية جديدة</h3><p>استمر في المحاولة، ونظّم وقتك، واجعل هدفك واضحًا.</p></div><i class="fa-solid fa-compass"></i></div>
-</section>
+            <p class="form-error hidden" id="formError" role="alert"></p>
+
+            <button type="submit" class="submit-button">
+                <span>دخول المنصة</span>
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <p class="privacy-note">
+                <i class="fa-solid fa-shield-halved"></i>
+                تُحفظ بيانات الدخول على هذا الجهاز لتسهيل عودتك.
+            </p>
+        </form>
+    </section>
+
+    <section class="dashboard-section hidden" id="dashboardSection">
+        <div class="dashboard-welcome">
+            <div class="dashboard-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+            <div>
+                <span class="eyebrow">أهلًا بعودتك</span>
+                <h2 id="dashboardStudentName">مرحبًا بك</h2>
+                <p id="dashboardStudentInfo"></p>
+            </div>
+        </div>
+
+        <div class="dashboard-divider"></div>
+
+        <div class="dashboard-message">
+            <div class="message-icon"><i class="fa-solid fa-book-open"></i></div>
+            <div>
+                <h3>رحلتك مع التاريخ تبدأ من هنا</h3>
+                <p>استعد للتعلم والفهم واكتشاف الأحداث التاريخية بصورة أعمق.</p>
+            </div>
+        </div>
+
+        <div class="dashboard-footer">
+            <i class="fa-solid fa-landmark"></i>
+            <span>منصة تاريخ الرقي</span>
+        </div>
+    </section>
+</main>
 
 <footer class="site-footer">
-<div class="footer-brand"><i class="fa-solid fa-landmark"></i><span>منصة تاريخ الرقي</span></div>
-<p>العلم طريق الرقي، والمعرفة بداية المستقبل.</p>
-<div class="footer-bottom"><span>© <span id="footerYear"></span> منصة تاريخ الرقي</span><span>الأستاذ محمد الجداوي · كبير معلمي التاريخ</span></div>
+    <span>منصة تاريخ الرقي</span>
+    <span class="footer-separator">•</span>
+    <span>الأستاذ محمد الجداوي</span>
 </footer>
-</div>
-</main>
-</div>
 
-<div class="modal-backdrop" id="welcomeModal" aria-hidden="true">
-<div class="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-<div class="modal-emblem"><i class="fa-solid fa-landmark-dome"></i></div>
-<div class="modal-kicker">أهلًا بك في عالم المعرفة</div>
-<h2 id="modalTitle">ابدأ رحلتك نحو التفوق</h2>
-<p>عرّفنا بنفسك لنجهّز لك تجربتك التعليمية.</p>
-<form id="welcomeForm">
-<div class="form-group"><label for="studentName">اسم الطالب</label><input type="text" id="studentName" placeholder="اكتب اسمك هنا" maxlength="60" required></div>
-<div class="form-group"><label for="studentGrade">المرحلة الدراسية</label><select id="studentGrade" required><option value="">اختر مرحلتك الدراسية</option><option value="الأول الثانوي">الصف الأول الثانوي</option><option value="الثاني الثانوي">الصف الثاني الثانوي</option><option value="الثاني الثانوي - البكالوريا">الصف الثاني الثانوي - البكالوريا</option><option value="الثالث الثانوي">الصف الثالث الثانوي</option></select></div>
-<button type="submit" class="primary-btn full-btn"><i class="fa-solid fa-arrow-left"></i> ابدأ الآن</button>
-</form>
-<div class="modal-note"><i class="fa-solid fa-lock"></i> تُحفظ بياناتك على هذا الجهاز فقط.</div>
-</div>
-</div>
-<div class="toast-container" id="toastContainer" aria-live="polite"></div>
-<button class="back-to-top" id="backToTop" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
-  </html>
+</html>
