@@ -1,140 +1,370 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const authModal = document.getElementById('authModal');
-    const mainApp = document.getElementById('mainApp');
-    const loginForm = document.getElementById('loginForm');
-    const studentGenderSelect = document.getElementById('studentGender');
-    const glowBg = document.getElementById('glowBg');
-    const spinRing = document.getElementById('spinRing');
+(() => {
+  'use strict';
 
-    const displayName = document.getElementById('displayName');
-    const displayGrade = document.getElementById('displayGrade');
-    const displayPhone = document.getElementById('displayPhone');
-    const displayUniqueCode = document.getElementById('displayUniqueCode');
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-    const bellBtn = document.getElementById('bellBtn');
-    const notificationsDropdown = document.getElementById('notificationsDropdown');
-    const logoutBtn = document.getElementById('logoutBtn');
+  const authModal = $('#authModal');
+  const mainApp = $('#mainApp');
+  const loginForm = $('#loginForm');
+  const genderSelect = $('#studentGender');
+  const authMessage = $('#authMessage');
+  const toast = $('#toast');
+  const bellBtn = $('#bellBtn');
+  const notificationsDropdown = $('#notificationsDropdown');
+  const logoutBtn = $('#logoutBtn');
+  const mobileMenuBtn = $('#mobileMenuBtn');
+  const mobileNav = $('#mobileNav');
 
-    // 1. نظام تعقيم وحماية المدخلات لمنع الثغرات الأمنية (XSS Sanitization)
-    function sanitizeInput(str) {
-        const temp = document.createElement('div');
-        temp.textContent = str;
-        return temp.innerHTML;
+  const STORAGE_KEY = 'tareekh_alroqi_profile_v2';
+  let toastTimer;
+
+  // هذه النسخة تعمل كمعاينة محلية.
+  // لتفعيل حسابات حقيقية، يلزم إنشاء خادم API آمن وتوصيله هنا.
+  const API_BASE = '';
+
+  function setTheme(gender) {
+    const isFemale = gender === 'female';
+    document.body.classList.toggle('theme-female', isFemale);
+    document.body.classList.toggle('theme-male', !isFemale);
+  }
+
+  function showToast(message) {
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3200);
+  }
+
+  function setAuthMessage(message = '') {
+    if (authMessage) authMessage.textContent = message;
+  }
+
+  function makeSessionCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const bytes = new Uint8Array(7);
+
+    if (window.crypto?.getRandomValues) {
+      window.crypto.getRandomValues(bytes);
+    } else {
+      for (let i = 0; i < bytes.length; i++) {
+        bytes[i] = Math.floor(Math.random() * 256);
+      }
     }
 
-    // 2. تحديث ألوان الثيم وتغيير التدرجات فوريًا حسب الجنس
-    function updateTheme(gender) {
-        if (gender === 'female') {
-            document.body.classList.add('theme-female');
-            document.body.classList.remove('theme-male');
-            if (glowBg) glowBg.className = 'absolute -top-32 -left-32 w-64 h-64 bg-pink-500/30 rounded-full blur-3xl pulse-light transition-all duration-500';
-            if (spinRing) spinRing.className = 'absolute inset-0 rounded-full bg-gradient-to-tr from-pink-500 via-purple-500 to-amber-300 animate-spin opacity-80 blur-sm';
-        } else {
-            document.body.classList.add('theme-male');
-            document.body.classList.remove('theme-female');
-            if (glowBg) glowBg.className = 'absolute -top-32 -left-32 w-64 h-64 bg-blue-500/30 rounded-full blur-3xl pulse-light transition-all duration-500';
-            if (spinRing) spinRing.className = 'absolute inset-0 rounded-full bg-gradient-to-tr from-amber-500 via-blue-500 to-amber-300 animate-spin opacity-80 blur-sm';
+    return 'TR-' + [...bytes]
+      .map(number => chars[number % chars.length])
+      .join('');
+  }
+
+  function normalizePhone(phone) {
+    return phone
+      .replace(/[٠-٩]/g, digit => String('٠١٢٣٤٥٦٧٨٩'.indexOf(digit)))
+      .replace(/\s+/g, '');
+  }
+
+  function validateProfile(data) {
+    const name = String(data.name || '').trim().replace(/\s+/g, ' ');
+    const phone = normalizePhone(String(data.phone || '').trim());
+
+    const allowedGrades = [
+      'الأول الثانوي',
+      'الثاني الثانوي',
+      'الثاني الثانوي (البكالوريا)',
+      'الثالث الثانوي'
+    ];
+
+    if (name.length < 5 || name.split(' ').length < 3) {
+      throw new Error('اكتب الاسم الثلاثي على الأقل.');
+    }
+
+    if (name.length > 90) {
+      throw new Error('الاسم أطول من المسموح.');
+    }
+
+    if (!/^01[0125]\d{8}$/.test(phone)) {
+      throw new Error('اكتب رقم هاتف مصري صحيحًا مكوّنًا من 11 رقمًا.');
+    }
+
+    if (!allowedGrades.includes(data.grade)) {
+      throw new Error('اختر صفًا دراسيًا صحيحًا.');
+    }
+
+    if (!['male', 'female'].includes(data.gender)) {
+      throw new Error('اختر لون المنصة.');
+    }
+
+    return {
+      name,
+      phone,
+      grade: data.grade,
+      gender: data.gender
+    };
+  }
+
+  function renderProfile(profile) {
+    $('#displayName').textContent = profile.name;
+    $('#displayGrade').textContent = profile.grade;
+    $('#displayUniqueCode').textContent = profile.code || 'جلسة محلية';
+
+    setTheme(profile.gender);
+  }
+
+  function setupReveal() {
+    const elements = $$('.reveal');
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach(element => element.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
         }
-    }
-
-    studentGenderSelect.addEventListener('change', (e) => {
-        updateTheme(e.target.value);
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -35px 0px'
     });
 
-    // 3. مولد الكود العشوائي الفريد والآمن للطالب
-    function generateStudentCode() {
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let code = 'RQ-';
-        for (let i = 0; i < 6; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return code;
+    elements.forEach((element, index) => {
+      if (!element.closest('#authModal')) {
+        element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+        observer.observe(element);
+      }
+    });
+  }
+
+  function openApp(profile) {
+    renderProfile(profile);
+
+    authModal.classList.add('is-leaving');
+
+    setTimeout(() => {
+      authModal.classList.add('hidden');
+      mainApp.classList.remove('hidden');
+
+      requestAnimationFrame(() => {
+        mainApp.classList.add('is-ready');
+      });
+
+      setupReveal();
+    }, 260);
+  }
+
+  function closeApp() {
+    mainApp.classList.remove('is-ready');
+    mainApp.classList.add('hidden');
+
+    authModal.classList.remove('hidden', 'is-leaving');
+    loginForm.reset();
+
+    setTheme('male');
+    setAuthMessage('');
+  }
+
+  async function submitToServer(profile) {
+    if (!API_BASE) return null;
+
+    const response = await fetch(`${API_BASE}/auth/register-or-login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(profile)
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(result.message || 'تعذّر تسجيل الدخول. حاول مرة أخرى.');
     }
 
-    // 4. فحص الجلسة عبر الخادم المحلي الآمن (LocalStorage)
-    const savedStudent = localStorage.getItem('elhedawy_history_secure_student');
-    if (savedStudent) {
-        try {
-            const studentData = JSON.parse(savedStudent);
-            applyUserData(studentData);
-            authModal.classList.add('hidden');
-            mainApp.classList.remove('hidden');
-            setTimeout(() => {
-                mainApp.classList.add('opacity-100');
-            }, 50);
-        } catch (err) {
-            console.error("Secure session verification failed", err);
-            localStorage.removeItem('elhedawy_history_secure_student');
+    return result;
+  }
+
+  loginForm?.addEventListener('submit', async event => {
+    event.preventDefault();
+    setAuthMessage('');
+
+    const submitBtn = $('#submitBtn');
+    const originalMarkup = submitBtn.innerHTML;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML =
+      '<i class="fa-solid fa-circle-notch fa-spin"></i><span>جارٍ تجهيز الدخول...</span>';
+
+    try {
+      const profile = validateProfile({
+        name: $('#studentName').value,
+        phone: $('#studentPhone').value,
+        grade: $('#studentGrade').value,
+        gender: genderSelect.value
+      });
+
+      const serverResult = await submitToServer(profile);
+
+      if (API_BASE) {
+        const safeProfile = serverResult?.profile;
+
+        if (!safeProfile) {
+          throw new Error('استجابة الخادم غير مكتملة.');
         }
-    }
 
-    // 5. استقبال وتأمين نموذج التسجيل
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const rawName = document.getElementById('studentName').value.trim();
-        const studentGrade = document.getElementById('studentGrade').value;
-        const studentGender = studentGenderSelect.value;
-        const rawPhone = document.getElementById('studentPhone').value.trim();
-
-        // تطبيق معايير التعقيم والتحقق الأمني
-        const studentName = sanitizeInput(rawName);
-        const studentPhone = sanitizeInput(rawPhone);
-        const uniqueCode = generateStudentCode();
-
-        const studentData = {
-            name: studentName,
-            grade: studentGrade,
-            gender: studentGender,
-            phone: studentPhone,
-            code: uniqueCode
+        openApp(safeProfile);
+      } else {
+        // وضع معاينة فقط؛ لا ينشئ حسابًا موثقًا ولا يتحقق من هوية الطالب.
+        const localProfile = {
+          ...profile,
+          code: makeSessionCode(),
+          mode: 'local-preview'
         };
 
-        // تخزين مشفر وخاص بالخادم المحلي
-        localStorage.setItem('elhedawy_history_secure_student', JSON.stringify(studentData));
-
-        applyUserData(studentData);
-
-        if (navigator.vibrate) {
-            navigator.vibrate(60);
+        try {
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(localProfile));
+        } catch (_) {
+          // يستمر العرض حتى لو كان التخزين غير متاح.
         }
 
-        authModal.classList.add('opacity-0');
-        setTimeout(() => {
-            authModal.classList.add('hidden');
-            mainApp.classList.remove('hidden');
-            setTimeout(() => {
-                mainApp.classList.add('opacity-100');
-            }, 50);
-        }, 400);
-    });
+        openApp(localProfile);
+        showToast('تم فتح وضع المعاينة المحلي، وليس حسابًا موثقًا.');
+      }
+    } catch (error) {
+      setAuthMessage(error.message || 'حدث خطأ غير متوقع.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalMarkup;
+    }
+  });
 
-    // 6. تطبيق واجهة بيانات الطالب
-    function applyUserData(data) {
-        displayName.textContent = data.name;
-        displayGrade.textContent = data.grade;
-        displayPhone.textContent = data.phone;
-        displayUniqueCode.textContent = data.code || generateStudentCode();
-        updateTheme(data.gender);
+  genderSelect?.addEventListener('change', event => {
+    setTheme(event.target.value);
+  });
+
+  logoutBtn?.addEventListener('click', async () => {
+    if (!confirm('هل تريد إنهاء الجلسة الحالية؟')) return;
+
+    try {
+      if (API_BASE) {
+        await fetch(`${API_BASE}/auth/logout`, {
+          method: 'POST',
+          credentials: 'include'
+        });
+      }
+
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch (_) {
+      // لا نعرض تفاصيل تقنية للمستخدم.
     }
 
-    // 7. زر تسجيل الخروج وإزالة الجلسة بأمان
-    logoutBtn.addEventListener('click', () => {
-        if (confirm('هل ترغب حقاً في تسجيل الخروج من حسابك؟')) {
-            localStorage.removeItem('elhedawy_history_secure_student');
-            location.reload();
-        }
+    closeApp();
+    showToast('تم إنهاء الجلسة.');
+  });
+
+  bellBtn?.addEventListener('click', event => {
+    event.stopPropagation();
+
+    const willOpen = notificationsDropdown.classList.contains('hidden');
+
+    notificationsDropdown.classList.toggle('hidden', !willOpen);
+    bellBtn.setAttribute('aria-expanded', String(willOpen));
+  });
+
+  notificationsDropdown?.addEventListener('click', event => {
+    event.stopPropagation();
+  });
+
+  document.addEventListener('click', () => {
+    notificationsDropdown?.classList.add('hidden');
+    bellBtn?.setAttribute('aria-expanded', 'false');
+  });
+
+  mobileMenuBtn?.addEventListener('click', event => {
+    event.stopPropagation();
+
+    const willOpen = mobileNav.classList.contains('hidden');
+
+    mobileNav.classList.toggle('hidden', !willOpen);
+    mobileMenuBtn.setAttribute('aria-expanded', String(willOpen));
+
+    mobileMenuBtn.innerHTML = willOpen
+      ? '<i class="fa-solid fa-xmark"></i>'
+      : '<i class="fa-solid fa-bars"></i>';
+  });
+
+  $$('#mobileNav a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.add('hidden');
+      mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      }
+    });
+  });
+
+  // تحديث رابط القسم النشط في القائمة.
+  if ('IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        $$('.nav-link').forEach(link => {
+          link.classList.toggle(
+            'active',
+            link.getAttribute('href') === `#${entry.target.id}`
+          );
+        });
+      });
+    }, {
+      rootMargin: '-30% 0px -60% 0px'
     });
 
-    // 8. إشعارات الجرس التفاعلية
-    bellBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        notificationsDropdown.classList.toggle('hidden');
+    ['home', 'learning', 'updates', 'community'].forEach(id => {
+      const section = document.getElementById(id);
+      if (section) sectionObserver.observe(section);
     });
+  }
 
-    window.addEventListener('click', () => {
-        if (!notificationsDropdown.classList.contains('hidden')) {
-            notificationsDropdown.classList.add('hidden');
-        }
-    });
-});
+  const yearElement = $('#currentYear');
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
+  setTheme('male');
+  setupReveal();
+
+  // استعادة جلسة المعاينة داخل علامة التبويب الحالية.
+  try {
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+      const profile = JSON.parse(saved);
+
+      if (
+        profile &&
+        profile.mode === 'local-preview' &&
+        typeof profile.name === 'string' &&
+        typeof profile.grade === 'string' &&
+        ['male', 'female'].includes(profile.gender)
+      ) {
+        openApp(profile);
+      } else {
+        sessionStorage.removeItem(STORAGE_KEY);
+      }
+    }
+  } catch (_) {
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch (_) {}
+  }
+})();
