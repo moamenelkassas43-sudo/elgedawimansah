@@ -1,0 +1,72 @@
+@keyframes cinematicLight {
+    0% { opacity: 0; transform: scale(0.85); filter: brightness(0.2) blur(15px); }
+    50% { opacity: 0.8; filter: brightness(1.4) blur(5px); }
+    100% { opacity: 1; transform: scale(1); filter: brightness(1) blur(0); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.08); }
+}
+
+.cinematic-box {
+    animation: cinematicLight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pulse-light {
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.glass-panel {
+    background: rgba(15, 23, 42, 0.86);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-nav {
+    background: rgba(10, 15, 29, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ثيم الأولاد (أزرق ملكي آمن ومتألق) */
+body.theme-male .dynamic-theme-border {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.45) !important;
+}
+body.theme-male .dynamic-theme-text {
+    color: #60a5fa !important;
+}
+body.theme-male .dynamic-theme-bg {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+}
+
+/* ثيم البنات (وردي فاخر) */
+body.theme-female .dynamic-theme-border {
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 35px rgba(236, 72, 153, 0.45) !important;
+}
+body.theme-female .dynamic-theme-text {
+    color: #f472b6 !important;
+}
+body.theme-female .dynamic-theme-bg {
+    background: linear-gradient(135deg, #db2777, #be185d) !important;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #f59e0b;
+}
